@@ -1,0 +1,60 @@
+body {
+  background: lightgreen;
+  margin: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.indexPage {
+  text-align: center;
+}
+
+textarea {
+  width: 25em;
+}
+
+.sectionHeader {
+  text-align: center;
+}
+
+.timer {
+  width: fit-content;
+  padding: 7px;
+  background: #198754;
+  color: white;
+  border-radius: 10px;
+}
+
+.prompt {
+  width: fit-content;
+}
+
+.promptCard {
+  margin: 10px 20px;
+  padding: 15px;
+  background: #1987544f;
+  border-radius: 10px;
+}
+
+.active {
+  border: 3px solid darkgreen;
+  background: #19875494;
+}
+
+.active .timer {
+  background: darkgreen;
+}
+
+table {
+  width: 100%;
+  background: #1987544f;
+  margin-bottom: 15px;
+}
+
+table thead {
+  color: white;
+  background: #198754;
+}
