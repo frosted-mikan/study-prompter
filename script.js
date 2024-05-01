@@ -55,7 +55,7 @@ function finishPrompts() {
 async function loopPrompts() {
   // Loop sections
   for (let i = 0; i < promptsList.length; i++) {
-    // set section title
+    // Set section title
     document.getElementById('sectionTitle').innerHTML = promptsList[i].section;
 
     // loop each prompt in section, render it
