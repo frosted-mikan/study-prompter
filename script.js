@@ -141,31 +141,43 @@ function startTimer(duration, display, id) {
         clearInterval(interval);
 
         // When timer finishes, get notes and pass to resolve()
-        resolve(document.getElementById('notes-' + id).value);
+        const currNote = document.getElementById('notes-' + id) ? document.getElementById('notes-' + id).value : ''; 
+        resolve(currNote);
       }
-    }  
+    }
 
     // Start timer automatically
     var interval = setInterval(timerFunc, 1000);
 
-    // Pause time btn
-    document.getElementById('pause').addEventListener('click', function() {
+    // Play/pause time btn
+    const playPauseBtn = document.getElementById('playpause');
+
+    function playPauseBtnControl() {
       if (timer >= 0) {
-        clearInterval(interval);
+        if (playPauseBtn.innerHTML.trim() === 'Pause') {
+          playPauseBtn.innerHTML = 'Play';
+          clearInterval(interval);
+        } else {
+          playPauseBtn.innerHTML = 'Pause';
+          interval = setInterval(timerFunc, 1000);
+        }
       }
+    }
+
+    playPauseBtn.addEventListener('click', function() {
+      playPauseBtnControl();
     });
 
-    // Play time btn
-    document.getElementById('play').addEventListener('click', function() {
-      if (timer >= 0) {
-        interval = setInterval(timerFunc, 1000);
+    document.addEventListener('keypress', function onEvent(event) {
+      if (event.key === '1') {
+        playPauseBtnControl();
       }
-    });
+  });
 
     // When 'next' clicked, get notes and move on
     document.getElementById('next').addEventListener('click', function() {
       clearInterval(interval);
-      
+
       const currNote = document.getElementById('notes-' + id) ? document.getElementById('notes-' + id).value : ''; 
       resolve(currNote);
     });
@@ -183,7 +195,7 @@ function exportTable(table_id, separator = ',') {
       for (var j = 0; j < cols.length; j++) {
           // Clean innertext to remove multiple spaces and jumpline (break csv)
           var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
-          // Escape double-quote with double-double-quote (see https://stackoverflow.com/questions/17808511/properly-escape-a-double-quote-in-csv)
+          // Escape double-quote with double-double-quote
           data = data.replace(/"/g, '""');
           // Push escaped string
           row.push('"' + data + '"');
@@ -192,7 +204,7 @@ function exportTable(table_id, separator = ',') {
   }
   var csv_string = csv.join('\n');
   // Download it
-  var filename = 'export_' + table_id + '_' + new Date().toLocaleDateString() + '.csv';
+  var filename = 'export' + '_' + new Date().toLocaleDateString() + '.csv';
   var link = document.createElement('a');
   link.style.display = 'none';
   link.setAttribute('target', '_blank');
